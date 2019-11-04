@@ -113,7 +113,6 @@ void Juego::inicializar() {
 		imprimirmuertos = al_load_font("Raphtalia DEMO.otf", 20, NULL);
 		fuente = al_load_font("Raphtalia DEMO.otf", 66, NULL);
 		pociciones = std::vector< std::vector<const char*> >(5);
-		listaFichasTemporar = std::vector< std::vector<Ficha*> >(5);
 		mapa = al_load_bitmap("Tablero.bmp");
 		jugador = al_load_bitmap("gallinaS.png");
 		iaBitmap = al_load_bitmap("coyote.png");
@@ -148,59 +147,14 @@ void Juego::pintar(ALLEGRO_DISPLAY * display) {
 	case 1: {
 		// dibujo el fondo
 		al_draw_bitmap(mapa, 0, 0, NULL);
-		Ficha* aux = this->incio_lista, * aux2 = NULL;
 		if (this->piensa == true) {
 			al_rest(0.8);
 			piensa = false;
 		}
 		// recorro los nodos y los dibujo 
-		while (aux != NULL) {
-			while (aux != NULL) {
-				if (aux->ficha == 1) {
-					al_draw_bitmap(jugador, aux->x, aux->y, ALLEGRO_ALIGN_CENTER);
-				}
-				else if (aux->ficha == 2) {
-					al_draw_bitmap(iaBitmap, aux->x, aux->y, ALLEGRO_ALIGN_CENTER);
-				}
-				else if (select != NULL) {
-					if (esAdyancente(select, aux))
-						al_draw_bitmap(libre, aux->x, aux->y, ALLEGRO_ALIGN_CENTER);
-				}
-				aux2 = aux;
-				aux = aux->derecha;
-			}
-			aux = aux2;
-			if (aux->abajo == NULL)break;
-			aux = aux->abajo;
-			while (aux != NULL) {
-				if (aux->ficha == 1) {
-					al_draw_bitmap(jugador, aux->x, aux->y, ALLEGRO_ALIGN_CENTER);
-				}
-				else if (aux->ficha == 2) {
-					al_draw_bitmap(iaBitmap, aux->x, aux->y, ALLEGRO_ALIGN_CENTER);
-				}
-				else if (select != NULL) {
-					if (esAdyancente(select, aux))
-						al_draw_bitmap(libre, aux->x, aux->y, ALLEGRO_ALIGN_CENTER);
-				}
-				aux2 = aux;
-				aux = aux->izquierda;
-			}
-			aux = aux2;
-			aux = aux->abajo;
-		}
-		if (deaths >= 3) {
-			al_rest(0.5);
-			al_draw_text(fuente, al_map_rgb(30, 90, 150), 350, 320, ALLEGRO_ALIGN_CENTER, "HAS PERDIDO");
-			al_flip_display();
-			al_rest(4);
-			al_clear_to_color(al_map_rgb(0, 0, 0));
-			cambiarPantalla(0);
-			this->pintar(display);
-		}
-		break;
-	}
 
+
+	}
 	}
 
 }
