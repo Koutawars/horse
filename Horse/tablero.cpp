@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
-
+#include "pch.h"
 
 Tablero::Tablero(){}
 Tablero::~Tablero(){}

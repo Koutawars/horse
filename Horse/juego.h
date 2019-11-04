@@ -44,20 +44,12 @@ public:
 	bool piensa = false; // variable para saber si piensa (sleep)
 	bool mato; // Cuando mata  al menos uno el gato
 	bool win = false; // variable es true cuando se gana
-	Ficha* gato; // nodo que apunta donde esta el gato
-	Ficha* incio_lista; // nodo padre del mapa
-	Ficha* select; // nodo seleccionado para mover
+ // nodo seleccionado para mover
 	ALLEGRO_BITMAP* mapa; // imagen del fondo/mapa
 	ALLEGRO_BITMAP* jugador; // imagen del jugador
 	ALLEGRO_BITMAP* iaBitmap; // imagen de la ia
 	ALLEGRO_BITMAP* libre; // imagen donde hay un espacio libre para mover
-	void CrearCamino(Ficha* a, Ficha* b, int dire); // función para crear caminos de un nodo a otro
-	bool esAdyancente(Ficha* select, Ficha* b); // función para saber si un nodo es adyacente de otro o no
 	std::vector <ALLEGRO_BITMAP*> elegir_orientacion;
-	// matrices temporales del mapa
-	std::vector< std::vector<const char*> > pociciones;
-	std::vector< std::vector<Ficha*> > listaFichasTemporar;
-	InputManager input;// input manager para las reclas
 	void matar(); //esto mata chabon
 
 	/*-----------mapa incio_lista----------*/
