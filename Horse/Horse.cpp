@@ -52,8 +52,6 @@ int main(int argc, char** argv) {
 	while (!done) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
-		if (input.isKeyReleased(ev, ALLEGRO_KEY_ESCAPE) || ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-			done = true;
 		Juego::GetInstance().actualizar(ev, &done);
 		if (Juego::GetInstance().boleana_para_pintar) {
 			Juego::GetInstance().pintar(display);
