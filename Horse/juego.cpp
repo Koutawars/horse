@@ -9,7 +9,7 @@ Juego& Juego::GetInstance()
 	static Juego instance;
 	return instance;
 }
-
+//80-45 principio del mapa (tamaño prom ficha 55x55)
 void Juego::actualizar(ALLEGRO_EVENT evento, bool* done) {
 	switch (pantalla) {
 	case 0: // Menu
@@ -47,15 +47,22 @@ void Juego::actualizar(ALLEGRO_EVENT evento, bool* done) {
 		if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 			if (evento.mouse.button & 1)
 			{
-				int mano = 20;
+				int tamano = 55;
 				int mouseX = evento.mouse.x;
 				int mouseY = evento.mouse.y;
-				if(mouseX > 20 && mouseX < 40 && mouseY > 20 && mouseY < 40)
-				if (true) {
-				
-
+				int i, j;
+				if (mouseX > 80 && mouseX < 520 && mouseY > 45 && mouseY < 480) {
+					mouseX -= 80;
+					mouseY -= 45;
+					j = mouseX / 55;
+					i = mouseY / 55;
+					tablero.mover_Ficha(i, j);
+					printf("i = [%d], j = [%d]", i, j);
 					boleana_para_pintar = true;
+
+
 				}
+				
 			}
 		}
 		
@@ -99,16 +106,14 @@ void Juego::inicializar() {
 		this->menu = new std::vector<Mensaje*>();
 		fuente = al_load_font("Raphtalia DEMO.otf", 36, NULL);
 		abut = al_load_font("Raphtalia DEMO.otf", 95, NULL);
-		menuFondo = al_load_bitmap("menu.bmp");
+		menuFondo = al_load_bitmap("menu.jpg");
 		break;
 	case 1:
 		tablero = Tablero();
 		imprimirmuertos = al_load_font("Raphtalia DEMO.otf", 20, NULL);
-		fuente = al_load_font("Raphtalia DEMO.otf", 66, NULL);
-		mapa = al_load_bitmap("Tablero.bmp");
-		jugador = al_load_bitmap("gallinaS.png");
-		iaBitmap = al_load_bitmap("coyote.png");
-		libre = al_load_bitmap("gallinaSa.png");
+		fuente = al_load_font("Raphtalia DEMO.otf", 75, NULL);
+		mapa = al_load_bitmap("Tablero.jpg");
+		ficha = al_load_bitmap("ficha.jpg");
 		break;
 
 	case 2:
@@ -123,11 +128,11 @@ void Juego::pintar(ALLEGRO_DISPLAY * display) {
 	case 0: {
 		al_draw_bitmap(menuFondo, 0, 0, NULL);
 		int i = 0;
-		al_draw_text(abut, al_map_rgb(128, 64, 0), 500, 65, ALLEGRO_ALIGN_CENTER, "El Coyote");
+		al_draw_text(abut, al_map_rgb(0, 0, 0), 260, 45, ALLEGRO_ALIGN_CENTER, "Ajedrez");
 		// recorrer el menu
 		for (auto texto : *menu) {
 			// se pinta de diferente color si esta seleccionado 
-			texto->pintar(fuente, 128, 64, 0, ALLEGRO_ALIGN_CENTER);
+			texto->pintar(fuente, 0, 0, 0, ALLEGRO_ALIGN_CENTER);
 			i++;
 		}
 		break;
@@ -138,6 +143,15 @@ void Juego::pintar(ALLEGRO_DISPLAY * display) {
 		if (this->piensa == true) {
 			al_rest(0.8);
 			piensa = false;
+		}
+
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				if( tablero.matrix[i][j] == 1)
+					al_draw_bitmap(ficha, 80+(j*55)+55/22, 45 + (i * 55) + 55 / 22, NULL);
+			}
 		}
 		// recorro los nodos y los dibujo 
 
@@ -156,8 +170,8 @@ void Juego::cargarcontenido() {
 		int i = 0;
 		// colocando la posición de las opciones de menu
 		for (auto texto : *menu) {
-			texto->y = 290 + (al_get_text_width(fuente, texto->contenido.c_str()) + 85) * i;
-			texto->x = 550;
+			texto->y = 250 + (al_get_text_width(fuente, texto->contenido.c_str()) + 65) * i;
+			texto->x = 450;
 			i++;
 		}
 		break;
@@ -183,6 +197,7 @@ void Juego::deleteContenido() {
 		break;
 	case 1:
 		al_destroy_bitmap(mapa);
+		al_destroy_bitmap(ficha);
 		al_destroy_bitmap(jugador);
 		al_destroy_bitmap(iaBitmap);
 		al_destroy_bitmap(libre);

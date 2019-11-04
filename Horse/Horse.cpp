@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	display = al_create_display(700, 700);//640, 480
+	display = al_create_display(600, 600);
 	if (!display) {
 		std::cout << "failed to create display!\n";
 		return -1;

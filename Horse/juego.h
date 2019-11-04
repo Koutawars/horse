@@ -45,7 +45,8 @@ public:
 	bool mato; // Cuando mata  al menos uno el gato
 	bool win = false; // variable es true cuando se gana
  // nodo seleccionado para mover
-	ALLEGRO_BITMAP* mapa; // imagen del fondo/mapa
+	ALLEGRO_BITMAP* mapa;// imagen del fondo/mapa
+	ALLEGRO_BITMAP* ficha;
 	ALLEGRO_BITMAP* jugador; // imagen del jugador
 	ALLEGRO_BITMAP* iaBitmap; // imagen de la ia
 	ALLEGRO_BITMAP* libre; // imagen donde hay un espacio libre para mover
