@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include "Juego.h"
+#include "InputManager.h"
 #include <iostream>
 
 #include <allegro5/allegro.h>
@@ -39,6 +40,7 @@ int main(int argc, char** argv) {
 
 	ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
 	ALLEGRO_TIMER* timer = al_create_timer(1.0f);
+	InputManager input;
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));

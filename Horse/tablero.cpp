@@ -1,12 +1,15 @@
-#include "tablero.h"
-#include "time.h"
-#include <stdlib.h>
-#include <time.h>
-#include <iostream>
 #include "pch.h"
+#include "tablero.h"
 
-Tablero::Tablero(){}
-Tablero::~Tablero(){}
+
+Tablero::Tablero()
+{
+}
+
+Tablero::~Tablero()
+{
+}
+
 void  Tablero::mover_Ficha(int x, int y) {
 	for (int i = 0; i < 8; i++)
 	{
@@ -27,9 +30,9 @@ void Tablero::imprimir() {
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			std::cout<<"[" << matrix[i][j] << "]";
+			std::cout << "[" << matrix[i][j] << "]";
 		}
-		std::cout<<std::endl;
+		std::cout << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -98,8 +101,8 @@ void Tablero::mover_Caballo(int x, int y, int n) {
 			imprimir();
 		}
 		mover_Caballo(x, y, n);
-
-
 	}
 
 }
+
+

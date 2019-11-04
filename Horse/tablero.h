@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 class Tablero
 {
 public:
@@ -9,4 +11,5 @@ public:
 	Tablero();
 	~Tablero();
 };
+
 

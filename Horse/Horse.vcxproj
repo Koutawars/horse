@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="juego.h" />
     <ClInclude Include="mensaje.h" />
     <ClInclude Include="pch.h" />
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Horse.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="juego.cpp" />
     <ClCompile Include="mensaje.cpp" />
     <ClCompile Include="pch.cpp">
