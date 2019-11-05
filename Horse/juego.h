@@ -3,7 +3,6 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
-#include "tablero.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -17,7 +16,9 @@ private:
 	Juego();
 	~Juego();
 public:
-
+	void  mover_Ficha(int x, int y);
+	int matrix[8][8];
+	void mover_Caballo(int x, int y, int n);
 	static Juego& GetInstance();
 	void inicializar();
 	void cargarcontenido();
@@ -28,7 +29,7 @@ public:
 	bool comenzarContador = false;
 	int tiempo = 600; // el tiempo en segundos 600 segundos = 10 minutos
 	std::vector<Mensaje*>* menu; // vector de Mensaje para el menu
-	Tablero tablero;
+	
 	/*------------Pantalla-----------*/
 	void cambiarPantalla(int pantalla); // función para cambiar pantalla
 	int pantalla = 0; // pantalla por defecto (menu = 0)

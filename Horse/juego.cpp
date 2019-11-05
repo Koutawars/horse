@@ -56,9 +56,11 @@ void Juego::actualizar(ALLEGRO_EVENT evento, bool* done) {
 					mouseY -= 45;
 					j = mouseX / 55;
 					i = mouseY / 55;
-					tablero.mover_Ficha(i, j);
+					mover_Ficha(i, j);
 					printf("i = [%d], j = [%d]", i, j);
 					boleana_para_pintar = true;
+
+					mover_Caballo(i, j, 3);
 
 
 				}
@@ -96,6 +98,100 @@ void Juego::actualizar(ALLEGRO_EVENT evento, bool* done) {
 	}
 	}
 }
+void  Juego::mover_Ficha(int x, int y) {
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (i == x && j == y) {
+				matrix[i][j] = 1;
+			}
+			else
+			{
+				matrix[i][j] = 0;
+			}
+		}
+	}
+}
+
+void Juego::mover_Caballo(int x, int y, int n) {
+
+	if (n > 0) {
+		int p = n;
+		int indice = rand() % 8;
+		if (x - 2 >= 0 && y + 1 < 8 && indice == 0) {
+			matrix[x][y] = 0;
+			x -= 2;
+			y += 1;
+			matrix[x][y] = 1;
+			n--;
+		}
+		else if (x - 2 >= 0 && y - 1 >= 0 && indice == 1) {
+			matrix[x][y] = 0;
+			x -= 2;
+			y -= 1;
+			matrix[x][y] = 1;
+			n--;
+		}
+		else if (x + 2 < 8 && y + 1 < 8 && indice == 2) {
+			matrix[x][y] = 0;
+			x += 2;
+			y += 1;
+			matrix[x][y] = 1;
+			n--;
+		}
+		else if (x + 2 < 8 && y - 1 >= 0 && indice == 3) {
+			matrix[x][y] = 0;
+			x += 2;
+			y -= 1;
+			matrix[x][y] = 1;
+			n--;
+		}
+		 else if (y - 2 >= 0 && x + 1 < 8 && indice == 4) {
+			matrix[x][y] = 0;
+			y -= 2;
+			x += 1;
+			matrix[x][y] = 1;
+			n--;
+		}
+		else if (y - 2 >= 0 && x - 1 >= 0 && indice == 5) {
+			matrix[x][y] = 0;
+			y -= 2;
+			x -= 1;
+			matrix[x][y] = 1;
+			n--;
+		}
+		else if (y + 2 < 8 && x + 1 < 8 && indice == 6) {
+			matrix[x][y] = 0;
+			y += 2;
+			x += 1;
+			matrix[x][y] = 1;
+			n--;
+		}
+		else if (y + 2 < 8 && x - 1 >= 0 && indice == 7) {
+			matrix[x][y] = 0;
+			y += 2;
+			x -= 1;
+			matrix[x][y] = 1;
+			n--;
+		}
+		if ( p > n ) {
+			for (int i = 0; i < 8; i++)
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					std::cout << "[" << matrix[i][j] << "]";
+				}
+				std::cout << std::endl;
+			}
+			std::cout << std::endl;
+			boleana_para_pintar = true;
+			
+		}
+	
+		mover_Caballo(x, y, n);
+	}
+}
 
 void Juego::inicializar() {
 	comenzarContador = false;
@@ -109,7 +205,6 @@ void Juego::inicializar() {
 		menuFondo = al_load_bitmap("menu.jpg");
 		break;
 	case 1:
-		tablero = Tablero();
 		imprimirmuertos = al_load_font("Raphtalia DEMO.otf", 20, NULL);
 		fuente = al_load_font("Raphtalia DEMO.otf", 75, NULL);
 		mapa = al_load_bitmap("Tablero.jpg");
@@ -144,15 +239,18 @@ void Juego::pintar(ALLEGRO_DISPLAY * display) {
 			al_rest(0.8);
 			piensa = false;
 		}
-
+		
 		for (int i = 0; i < 8; i++)
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				if( tablero.matrix[i][j] == 1)
-					al_draw_bitmap(ficha, 80+(j*55)+55/22, 45 + (i * 55) + 55 / 22, NULL);
+				if (matrix[i][j] == 1) {
+					al_draw_bitmap(ficha, 80 + (j * 55) + 55 / 22, 45 + (i * 55) + 55 / 22, NULL);
+				}
 			}
 		}
+		al_rest(0.3);
+		boleana_para_pintar = false;
 		// recorro los nodos y los dibujo 
 
 
@@ -179,7 +277,7 @@ void Juego::cargarcontenido() {
 	case 1:
 	{
 		
-		tablero.mover_Ficha(0, 0);
+		mover_Ficha(0, 0);
 			
 		break;
 	}
