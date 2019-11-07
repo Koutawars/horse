@@ -18,7 +18,9 @@ private:
 public:
 	void  mover_Ficha(int x, int y);
 	int matrix[8][8];
-	void mover_Caballo(int x, int y, int n);
+	std::pair<int, int> posCaballo;
+	void mover_Caballo();
+	int numMov; // numero de movimientos que faltan
 	static Juego& GetInstance();
 	void inicializar();
 	void cargarcontenido();
@@ -52,12 +54,10 @@ public:
 	ALLEGRO_BITMAP* iaBitmap; // imagen de la ia
 	ALLEGRO_BITMAP* libre; // imagen donde hay un espacio libre para mover
 	std::vector <ALLEGRO_BITMAP*> elegir_orientacion;
-	void matar(); //esto mata chabon
 
 	/*-----------mapa incio_lista----------*/
 
 	bool boleana_para_pintar; // es verdadero cuando se quiere actualizar la pantalla
 	ALLEGRO_FONT* fuente; // fuente que se utiliza en el menu
-
 };
 

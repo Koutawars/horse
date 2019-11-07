@@ -42,11 +42,15 @@ void Juego::actualizar(ALLEGRO_EVENT evento, bool* done) {
 	}
 	case 1:
 	{
+		if (numMov > 0) {
+			mover_Caballo();
+			piensa = true;
+		}
 
-		
 		if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-			if (evento.mouse.button & 1)
+			if (evento.mouse.button & 1 && numMov == 0)
 			{
+				/*
 				int tamano = 55;
 				int mouseX = evento.mouse.x;
 				int mouseY = evento.mouse.y;
@@ -59,12 +63,8 @@ void Juego::actualizar(ALLEGRO_EVENT evento, bool* done) {
 					mover_Ficha(i, j);
 					printf("i = [%d], j = [%d]", i, j);
 					boleana_para_pintar = true;
-
-					mover_Caballo(i, j, 3);
-
-
-				}
-				
+				}*/
+				numMov = 3;
 			}
 		}
 		
@@ -114,8 +114,10 @@ void  Juego::mover_Ficha(int x, int y) {
 	}
 }
 
-void Juego::mover_Caballo(int x, int y, int n) {
-
+void Juego::mover_Caballo() {
+	int x = posCaballo.first;
+	int y = posCaballo.second;
+	int n = numMov;
 	if (n > 0) {
 		int p = n;
 		int indice = rand() % 8;
@@ -176,6 +178,9 @@ void Juego::mover_Caballo(int x, int y, int n) {
 			n--;
 		}
 		if ( p > n ) {
+			numMov--;
+			this->posCaballo.first = x;
+			this->posCaballo.second = y;
 			for (int i = 0; i < 8; i++)
 			{
 				for (int j = 0; j < 8; j++)
@@ -185,11 +190,9 @@ void Juego::mover_Caballo(int x, int y, int n) {
 				std::cout << std::endl;
 			}
 			std::cout << std::endl;
+
 			boleana_para_pintar = true;
-			
 		}
-	
-		mover_Caballo(x, y, n);
 	}
 }
 
@@ -209,6 +212,10 @@ void Juego::inicializar() {
 		fuente = al_load_font("Raphtalia DEMO.otf", 75, NULL);
 		mapa = al_load_bitmap("Tablero.jpg");
 		ficha = al_load_bitmap("ficha.jpg");
+		posCaballo = std::make_pair(2, 2);
+		mover_Ficha(2, 2);
+		numMov = 0;
+		this->piensa = false;
 		break;
 
 	case 2:
@@ -249,11 +256,7 @@ void Juego::pintar(ALLEGRO_DISPLAY * display) {
 				}
 			}
 		}
-		al_rest(0.3);
 		boleana_para_pintar = false;
-		// recorro los nodos y los dibujo 
-
-
 	}
 	}
 
@@ -277,7 +280,6 @@ void Juego::cargarcontenido() {
 	case 1:
 	{
 		
-		mover_Ficha(0, 0);
 			
 		break;
 	}
