@@ -38,19 +38,20 @@ void Juego::actualizar(ALLEGRO_EVENT evento, bool* done) {
 				}
 			}
 		}
+
 		break;
 	}
 	case 1:
 	{
-		if (numMov > 0) {
-			mover_Caballo();
-			piensa = true;
-		}
+		
+		
+		
+
 
 		if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-			if (evento.mouse.button & 1 && numMov == 0)
+			if (evento.mouse.button & 1  )
 			{
-				/*
+				
 				int tamano = 55;
 				int mouseX = evento.mouse.x;
 				int mouseY = evento.mouse.y;
@@ -62,11 +63,44 @@ void Juego::actualizar(ALLEGRO_EVENT evento, bool* done) {
 					i = mouseY / 55;
 					mover_Ficha(i, j);
 					printf("i = [%d], j = [%d]", i, j);
+					this->posCaballo.first = i;
+					this->posCaballo.second = j;
 					boleana_para_pintar = true;
-				}*/
-				numMov = 3;
+				}
 			}
 		}
+		if (numMov > 0) {
+			mover_Caballo();
+			piensa = true;
+		}
+		if (input.isKeyPressed(evento, ALLEGRO_KEY_1)) {
+			numMov = 1;
+		}
+		else if (input.isKeyPressed(evento, ALLEGRO_KEY_2)) {
+			numMov = 2;
+		}
+		else if (input.isKeyPressed(evento, ALLEGRO_KEY_3)) {
+			numMov = 3;
+		}
+		else if (input.isKeyPressed(evento, ALLEGRO_KEY_4)) {
+			numMov = 4;
+		}
+		else if (input.isKeyPressed(evento, ALLEGRO_KEY_5)) {
+			numMov = 5;
+		}
+		else if (input.isKeyPressed(evento, ALLEGRO_KEY_6)) {
+			numMov = 6;
+		}
+		else if (input.isKeyPressed(evento, ALLEGRO_KEY_7)) {
+			numMov = 7;
+		}
+		else if (input.isKeyPressed(evento, ALLEGRO_KEY_8)) {
+			numMov = 8;
+		}
+		else if (input.isKeyPressed(evento, ALLEGRO_KEY_9)) {
+			numMov = 9;
+		}
+		
 		
 
 	

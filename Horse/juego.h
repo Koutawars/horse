@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include "InputManager.h"
 #include "mensaje.h"
 #include <stdlib.h>
 #include <time.h>
@@ -54,6 +55,7 @@ public:
 	ALLEGRO_BITMAP* iaBitmap; // imagen de la ia
 	ALLEGRO_BITMAP* libre; // imagen donde hay un espacio libre para mover
 	std::vector <ALLEGRO_BITMAP*> elegir_orientacion;
+	InputManager input;
 
 	/*-----------mapa incio_lista----------*/
 
